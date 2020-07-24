@@ -3,6 +3,7 @@
 
 - 算法
   - [极客大学算法训练营笔记](./Algorithms/算法训练营学习笔记.md)
+  - [LeetCode 代码收藏](./Algorithms/FavouritedCodes/代码收藏.md)
 - Linux
   - [极客时间Linux实战100讲](./Linux/Linux学习笔记.md)
 - 全栈
