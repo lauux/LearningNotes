@@ -47,7 +47,7 @@ cd -  				#	回到之前操作的目录
 
 
 
-### 目录相关
+### 目录/文件相关
 
 #### 创建目录 `mkdir`
 
@@ -75,4 +75,82 @@ rm -r a														# 删除目录 a 无论其是否为空，有提示
 rm -r -f a												# 删除目录 a，无提示
 rm -rf a													# 与上等价
 ```
+
+#### 复制 `cp`
+
+```shell
+cp [options] source_file target_file
+cp /root/a/afile /root/b/bfile 		# 复制/root/a目录下的afile文件到/root/b目录下并更名为bfile
+cp -r /root/a /tmp 								# 将/root/a目录复制到/tmp中
+cp -r /root/a /tmp/b							# 若tmp中不存在名为b的目录，则将目录/root/a复制到/tmp中并更名为b
+cp -v /root/a/afile /root/b				# 复制，不更名，并显示过程
+cp -p	source_file targetfile			# 保留原有时间，属主状态
+cp -a	source_file targetfile			# 保留原有时间，属主，权限
+```
+
+#### 移动 `mv` （可用于文件重命名）
+
+```shell
+mv [options] source target
+mv /root/a/afile /tmp 						# 将/root/a目录下的afile文件移动到/tmp中
+mv /root/a/afile /root/b/bfile 		# 将/root/a目录下的afile文件移动到/root/b目录下并更名为bfile
+mv ./afile ./bfile								# 将当前目录下的afile重命名为bfile	
+```
+
+#### 文本查看
+
+##### `cat `文本内容显示到终端
+
+```shell
+cat /demo
+```
+
+##### `head` 查看文件开头
+
+```shell
+head /demo
+head -5 /demo											# 显示前5行
+```
+
+##### `tail` 查看文件结尾
+
+常用参数 `-f` 文件内容更新后，显示信息同步更新
+
+```shell
+tail /demo
+tail -5 /demo											# 显示后5行
+tail -f /demo											# 若demo是实时变化，则会同步更新到终端，用ctrl+c退出
+```
+
+##### `wc` 统计文件内容信息
+
+```shell
+wc -l /demo												# 显示文件行数
+```
+
+##### `more` , `less` 分页显示
+
+```shell
+more /demo												# 只能向后翻页，不能向前翻页
+less /demo												# 能前后翻页
+```
+
+#### 打包压缩和解压缩
+
+
+
+
+
+
+
+### 通配符
+
+```shell
+*																	# 匹配任意长度的任意字符
+?																	# 匹配一个长度的任意字符
+```
+
+
+
+
 
