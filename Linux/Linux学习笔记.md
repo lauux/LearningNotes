@@ -1,5 +1,13 @@
 # Linux实战技能100讲-学习笔记
 
+## CONTENTS
+
+[TOC]
+
+
+
+
+
 
 
 ## 系统操作
@@ -550,7 +558,130 @@ chmod 1xxx target
 
 
 
+### 网络管理
 
+#### 网络状态查看
+
+##### 网络状态查看工具 `net-tools` VS `iproute`
+
+**net-tools**
+
+**`ifconfig` 命令**
+
+- `eth0` 第一块网卡（网络接口）
+- 第一个网络接口可能有以下名字
+  - `eno1`  板载网卡
+  - `ens33` PCI-E网卡
+  - `enp0s3` 无法获取物理信息的 PCI-E 网卡
+  - CentOS 7 使用了一致性网络设备命名，以上都不匹配则使用 `eth0`（可以通过[命令](#网络接口命令修改)修改）
+- 网卡信息
+  - `inet` 网卡地址
+  - `netmask` 子网掩码
+  - `ether` 网卡MAC地址
+- `lo` 本地环回
+  - ip 一般为 `127.0.0.1`
+- `virbr0`
+
+**`mii-tool eth0`  查看网络物理连接情况**
+
+- 
+
+`netstat`
+
+**iproute2**
+
+`ip`
+
+`ss`
+
+##### 网络接口命令修改
+
+- 网卡命名规则受 `biosdevname` 和  `net.ifnames` 两个参数影响
+
+- 编辑 `/etc/default/grub` 文件，增加 `biosdevname=0 net.ifnames=0` ，则可以统一网卡名
+
+- 更新 `grub`
+
+  - `# grub2-mkconfig -o /boot/grub2/grub/cfg`
+
+- 重启
+
+  - `# reboot`
+
+  - 参数组合
+
+    |       | `biosdevname` | `net.ifnames` | 网卡名  |
+    | ----- | ------------- | ------------- | ------- |
+    | 默认  | 0             | 1             | `ens33` |
+    | 组合1 | 1             | 0             | `em1`   |
+    | 组合2 | 0             | 0             | `eth0`  |
+
+
+
+
+
+#### 网络配置
+
+##### `ifconfig` 命令
+
+- 修改 IP 地址和子网掩码
+  -  `ifconfig <接口> <IP地址> [netmask 子网掩码]`
+
+- 打开网络接口
+  - `ifconfig <接口> up`
+  - `ifup <接口>`
+
+- 关闭网络接口
+  - `ifconfig <接口> down`
+  - ` ifdown <接口>`
+
+##### `ip` 命令
+
+- `ip addr ls`
+  - `ifconfig`
+
+- `ip link set dev eth0 up`
+  - `ifup eth0`
+
+- `ip addr add 10.0.0.1/24 dev eth1`
+  - `ifconfig eht1 10.0.0.1 netmask 255.255.255.0`
+
+- `ip route add 10.0.0/24 via 192.168.0.1`
+  - `route add -net 10.0.0.0 netmask 255.255.255.0 gw 192.168.0.1`
+
+
+
+
+
+#### 路由命令
+
+##### 查看网关（路由）
+
+- `route -n`
+  - 使用 `-n` 参数不解析主机名
+
+##### 修改网关
+
+- 添加网关
+  - `route add default gw <网关ip>` 
+  - `route add -host <指定ip> gw <网关ip>`
+  - `route add -net <指定网段> netmask <子网掩码> gw <网关ip>`
+- 删除网关
+  - `route del default gw <网关ip>`
+
+
+
+#### 网络故障排除
+
+
+
+#### 网络服务管理
+
+
+
+
+
+#### 常用网络配置文件
 
 
 
